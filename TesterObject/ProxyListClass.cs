@@ -11,19 +11,25 @@ namespace Hitachi.Tester.Module
     /// </summary>
     public class ProxyListClass
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public ProxyListClass()
-        {
-            m_proxyList = new List<ProxyStruct>();
-        }
-
+        #region Fields
         /// <summary>
         /// List of proxy structs
         /// </summary>
         private List<ProxyStruct> m_proxyList;
+        #endregion Fields
 
+        #region Constructors
+        public ProxyListClass()
+        {
+            m_proxyList = new List<ProxyStruct>();
+        }
+        #endregion Constructors
+
+        #region Properties
+
+        #endregion Properties
+
+        #region Methods
         /// <summary>
         /// Get proxy item via numeric index.
         /// </summary>
@@ -113,6 +119,7 @@ namespace Hitachi.Tester.Module
                 return m_proxyList.Count;
             }
         }
+        #endregion Methods
     }  // end class
 
     /// <summary>
@@ -120,6 +127,13 @@ namespace Hitachi.Tester.Module
     /// </summary>
     public class ProxyStruct
     {
+        #region Fields
+        public string m_computerName;
+        public ITesterObjectCallback m_proxy;
+        public string UserName;
+        #endregion Fields
+
+        #region Constructors
         public ProxyStruct()
         {
             m_computerName = "";
@@ -133,10 +147,6 @@ namespace Hitachi.Tester.Module
             m_proxy = _proxy;
             UserName = _UserName;
         }
-
-        public string m_computerName;
-        public ITesterObjectCallback m_proxy;
-        public string UserName;
-
+        #endregion Constructors
     }  // end class
 }

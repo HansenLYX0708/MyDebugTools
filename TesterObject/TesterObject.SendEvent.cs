@@ -12,13 +12,13 @@ namespace Hitachi.Tester.Module
     public partial class TesterObject
     {
         #region Fields
-        private Queue<BladeEventStruct> bladeEventQueue = new Queue<BladeEventStruct>();
-        private ReaderWriterLock bladeEventQueueLock = new ReaderWriterLock();
-        private Thread bladeEventsThread;
-        private object bladeEventLockObj = new object();
+        private Queue<BladeEventStruct> _BladeEventQueue = new Queue<BladeEventStruct>();
+        private ReaderWriterLock _BladeEventQueueLock = new ReaderWriterLock();
+        private Thread _BladeEventsThread;
+        private object _BladeEventLockObj = new object();
 
         private delegate void AsyncSendGenericEventDelegate(object sender, StatusEventArgs e, ref StatusEventHandler handler, Queue<BladeEventArgs> queue, string eventName);
-        private MemsStateValues lastBunnyStatusSent = MemsStateValues.Unknown;
+        private MemsStateValues _LastBunnyStatusSent = MemsStateValues.Unknown;
         #endregion Fields
 
         #region Properties
@@ -54,7 +54,7 @@ namespace Hitachi.Tester.Module
                     {
                         try
                         {
-                            bladeEventQueueLock.AcquireWriterLock(20);
+                            _BladeEventQueueLock.AcquireWriterLock(20);
                             break;
                         }
                         catch (ApplicationException)
@@ -67,7 +67,7 @@ namespace Hitachi.Tester.Module
 
                     if (_Exit) continue;
                     // TODO : 下面的测试状态
-                    if (bladeEventQueue.Count == 0 /*||
+                    if (_BladeEventQueue.Count == 0 /*||
                         testerState.bPauseEvents*/)
                     {
                         // Do not send event
@@ -75,9 +75,9 @@ namespace Hitachi.Tester.Module
                         continue;
                     }
 
-                    while (bladeEventQueue.Count > 0)
+                    while (_BladeEventQueue.Count > 0)
                     {
-                        BladeEventStruct anEventStruct = bladeEventQueue.Dequeue();
+                        BladeEventStruct anEventStruct = _BladeEventQueue.Dequeue();
                         BladeEventArgs anEventArg = anEventStruct.EE;
 
                         bladeEventArgList.Add(anEventStruct);
@@ -85,10 +85,10 @@ namespace Hitachi.Tester.Module
                 }
                 finally
                 {
-                    if (bladeEventQueueLock.IsWriterLockHeld)
+                    if (_BladeEventQueueLock.IsWriterLockHeld)
                     {
                         // Release access right
-                        bladeEventQueueLock.ReleaseWriterLock();
+                        _BladeEventQueueLock.ReleaseWriterLock();
                     }
                 }
                 if (_Exit) return;

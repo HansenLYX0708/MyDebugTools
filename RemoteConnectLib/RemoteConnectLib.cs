@@ -23,6 +23,8 @@ namespace Hitachi.Tester.Client
         private bool _CurrentNetTcpConnectFlag;
         private object _ConnectLockObject;
         private bool _BusyConnecting;
+
+        public TesterObjectCallback _BladeEventCallbackClass = null;
         #endregion Fields
 
         #region Constructors
@@ -37,6 +39,7 @@ namespace Hitachi.Tester.Client
             _ConnectLockObject = new object();
             _BusyConnecting = false;
 
+            _BladeEventCallbackClass = new TesterObjectCallback(this);
 
         }
 

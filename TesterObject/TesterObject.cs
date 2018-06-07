@@ -47,9 +47,9 @@ namespace Hitachi.Tester.Module
             { }
 
             // TODO : 构造函数里面不应该存在如下的复杂过程，应考虑移出去
-            bladeEventsThread = new Thread(doBladeEvents);
-            bladeEventsThread.IsBackground = true;
-            bladeEventsThread.Start();
+            _BladeEventsThread = new Thread(doBladeEvents);
+            _BladeEventsThread.IsBackground = true;
+            _BladeEventsThread.Start();
         }
 
         ~TesterObject()
