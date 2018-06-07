@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Threading;
 using System.ServiceModel;
+
 using Hitachi.Tester;
 using Hitachi.Tester.Module;
 using Hitachi.Tester.Enums;
@@ -44,6 +45,11 @@ namespace Hitachi.Tester.Module
             }
             catch
             { }
+
+            // TODO : 构造函数里面不应该存在如下的复杂过程，应考虑移出去
+            bladeEventsThread = new Thread(doBladeEvents);
+            bladeEventsThread.IsBackground = true;
+            bladeEventsThread.Start();
         }
 
         ~TesterObject()
@@ -123,6 +129,24 @@ namespace Hitachi.Tester.Module
         {
             StartTestSequenceDelegate startTestDelegate = new StartTestSequenceDelegate(StartTestSequence);
             startTestDelegate.BeginInvoke(ParseString, TestName, GradeName, 0, false, tableStr, new AsyncCallback(delegate (IAsyncResult ar) { startTestDelegate.EndInvoke(ar); }), startTestDelegate);
+        }
+
+        public StringBuilder makeUpExceptionString(Exception e)
+        {
+            // build up error message
+            StringBuilder message = new StringBuilder();
+            for (Exception ee = e; ee != null; ee = ee.InnerException)
+            {
+                try { message.Append(ee.Message); message.Append(Environment.NewLine); }
+                catch { }
+                try { message.Append(ee.Source); message.Append(Environment.NewLine); }
+                catch { }
+                try { message.Append(ee.TargetSite.ToString()); message.Append(Environment.NewLine); }
+                catch { }
+                try { message.Append(ee.StackTrace); message.Append(Environment.NewLine); }
+                catch { }
+            }
+            return message;
         }
         #endregion Methods
 

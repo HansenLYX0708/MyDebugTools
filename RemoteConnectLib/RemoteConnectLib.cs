@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Hitachi.Tester.Enums;
 using System.ServiceModel;
+using Hitachi.Tester.Module;
 
 namespace Hitachi.Tester.Client
 {
@@ -14,7 +15,7 @@ namespace Hitachi.Tester.Client
         #region Fields
         private bool _Disposed;
 
-        //private DuplexChannelFactory<ITesterObject> factory = null;
+        private DuplexChannelFactory<ITesterObject> factory = null;
         //private ChannelFactory<ITesterObjectStreaming> factoryStreaming = null;
         private string _CurrentUrlAddress;
         private string _CurrentUserID;
