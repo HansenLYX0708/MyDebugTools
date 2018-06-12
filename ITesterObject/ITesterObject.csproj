@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractEventClass.cs" />
     <Compile Include="BladeEventArgs.cs" />
+    <Compile Include="BladeEventWithTime.cs" />
     <Compile Include="Faults.cs" />
     <Compile Include="ITesterObject.cs" />
     <Compile Include="ITesterObjectCallback.cs" />

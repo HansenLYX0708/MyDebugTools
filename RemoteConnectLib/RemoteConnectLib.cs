@@ -25,6 +25,8 @@ namespace Hitachi.Tester.Client
         private bool _BusyConnecting;
 
         public TesterObjectCallback _BladeEventCallbackClass = null;
+
+        public BladeEventClass BladeEvent;
         #endregion Fields
 
         #region Constructors
@@ -84,7 +86,6 @@ namespace Hitachi.Tester.Client
             }
             return retVal;
         }
-
 
         // TODO : 
         private string MakeupCompleteUrl( string urlAddress, bool netTcp )
