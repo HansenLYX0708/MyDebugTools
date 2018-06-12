@@ -25,7 +25,6 @@ namespace Hitachi.Tester.Client
         private bool _BusyConnecting;
 
         public TesterObjectCallback _BladeEventCallbackClass = null;
-
         public BladeEventClass BladeEvent;
         #endregion Fields
 
