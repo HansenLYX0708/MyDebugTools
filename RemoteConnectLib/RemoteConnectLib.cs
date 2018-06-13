@@ -52,10 +52,6 @@ namespace Hitachi.Tester.Client
         }
         #endregion Constructors
 
-        #region Properties
-
-        #endregion Properties
-
         #region Methods
         public UInt32 Connect(string urlAddress, string userID, string password, bool netTcp, bool tobj, bool tobjStr)
         {
